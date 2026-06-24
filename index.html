@@ -15,13 +15,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green:      #2D8C4E;
-      --green-dark: #1F6638;
-      --green-light:#E8F5ED;
+      --green:      #1D6FDB;
+      --green-dark: #1452A8;
+      --green-light:#EBF4FF;
       --amber:      #F59E0B;
       --amber-dark: #D97706;
-      --cream:      #FFFBF3;
-      --warm-gray:  #F7F3EC;
+      --cream:      #F5F8FF;
+      --warm-gray:  #EEF3FA;
       --text:       #1A1A1A;
       --text-soft:  #4A4A4A;
       --text-muted: #7A7A7A;
@@ -58,7 +58,7 @@
 
     /* ── HERO ───────────────────────────────── */
     .hero {
-      background: linear-gradient(160deg, #1B5E34 0%, #2D8C4E 55%, #3AAB62 100%);
+      background: linear-gradient(160deg, #0C3D7A 0%, #1D6FDB 55%, #2E8DE8 100%);
       padding: 60px 20px 72px;
       text-align: center;
       position: relative;
@@ -108,7 +108,10 @@
     }
 
     .btn-cta {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       background: var(--amber);
       color: var(--text);
       font-family: 'Nunito', sans-serif;
@@ -122,6 +125,13 @@
       letter-spacing: 0.01em;
       border: none;
       cursor: pointer;
+    }
+    .btn-arrow {
+      font-size: 1.5em;
+      line-height: 1;
+      animation: bounce-arrow 1.2s ease-in-out infinite;
+      flex-shrink: 0;
+      display: inline-block;
     }
     .btn-cta:hover {
       transform: translateY(-2px) scale(1.02);
@@ -252,7 +262,7 @@
       background: var(--green-light);
       border-radius: var(--radius);
       padding: 24px 22px;
-      border: 1.5px solid #B8DFC9;
+      border: 1.5px solid #A8D0F0;
     }
     .benefit-icon {
       font-size: 32px;
@@ -273,7 +283,7 @@
 
     /* ── WHAT'S INCLUDED ────────────────────── */
     .included-section {
-      background: linear-gradient(160deg, #1F6638 0%, #2D8C4E 100%);
+      background: linear-gradient(160deg, #1452A8 0%, #1D6FDB 100%);
       padding: 64px 20px;
       text-align: center;
       color: var(--white);
@@ -512,8 +522,8 @@
       display: flex;
       align-items: flex-start;
       gap: 28px;
-      background: #F0FFF4;
-      border: 2px solid #86EFAC;
+      background: #F0F7FF;
+      border: 2px solid #7DD3FC;
       border-radius: 20px;
       padding: 36px 32px;
     }
@@ -588,13 +598,13 @@
       line-height: 1.65;
     }
     .faq-item.open .faq-answer {
-      max-height: 300px;
+      max-height: 800px;
       padding: 0 24px 20px;
     }
 
     /* ── FINAL CTA ──────────────────────────── */
     .final-cta {
-      background: linear-gradient(160deg, #1B5E34 0%, #2D8C4E 100%);
+      background: linear-gradient(160deg, #0C3D7A 0%, #1D6FDB 100%);
       padding: 80px 20px;
       text-align: center;
       position: relative;
@@ -637,7 +647,7 @@
 
     /* ── FOOTER ─────────────────────────────── */
     footer {
-      background: #0F3D22;
+      background: #071F40;
       color: rgba(255,255,255,0.5);
       text-align: center;
       padding: 28px 20px;
@@ -709,12 +719,17 @@
 
       /* ── BOTÕES: largura total ── */
       .btn-cta {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
         width: 100%;
-        text-align: center;
         padding: 18px 16px;
-        font-size: 16px;
+        font-size: 15px;
         box-sizing: border-box;
+      }
+      .btn-arrow {
+        font-size: 2em;
       }
 
       /* ── IMAGENS ── */
@@ -735,6 +750,12 @@
 
       /* ── FINAL CTA ── */
       .final-cta h2 { font-size: clamp(22px, 6vw, 32px); }
+    }
+
+    /* ── BOUNCE ARROW ───────────────────────── */
+    @keyframes bounce-arrow {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(4px); }
     }
 
     /* ── PULSE ANIMATION on CTA ─────────────── */
@@ -777,8 +798,8 @@
       background: var(--white);
       border-radius: 22px;
       padding: 44px 44px 36px;
-      border: 1.5px solid #D6EEE0;
-      box-shadow: 0 8px 40px rgba(45,140,78,0.09);
+      border: 1.5px solid #DBEEFF;
+      box-shadow: 0 8px 40px rgba(29,111,219,0.09);
       text-align: left;
       position: relative;
     }
@@ -786,7 +807,7 @@
     .tcard-quote {
       font-family: 'Playfair Display', serif;
       font-size: 96px;
-      color: #D6EEE0;
+      color: #DBEEFF;
       position: absolute;
       top: 6px;
       left: 28px;
@@ -851,7 +872,7 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      border: 1.5px solid #C9D9D0;
+      border: 1.5px solid #C0D5EF;
       background: var(--white);
       color: var(--text-muted);
       font-size: 15px;
@@ -879,7 +900,7 @@
       width: 7px;
       height: 7px;
       border-radius: 100px;
-      background: #C9D9D0;
+      background: #C0D5EF;
       cursor: pointer;
       transition: all 0.35s;
       border: none;
@@ -911,16 +932,17 @@
 
   <!-- TOP BAR -->
   <div class="topbar">
-    🔥 Oferta especial: acesso imediato por apenas <span>R$ 67</span> — hoje!
+    🔥 Oferta especial: acesso imediato por apenas <span>R$ 67</span> hoje!
   </div>
 
   <!-- ─── HERO ──────────────────────────────── -->
   <section class="hero">
     <div class="hero-eyebrow">Para crianças de 3 a 10 anos</div>
     <h1>Seu filho pode ter mais <em>foco e coordenação</em> com atividades simples que qualquer mãe consegue fazer em casa</h1>
-    <p class="hero-sub">Um guia interativo completo com atividades práticas, progressivas e desenvolvidas com base em princípios utilizados por especialistas em neuropediatria infantil, criado para estimular o foco, a atenção e a coordenação motora da sua criança — sem precisar de terapias caras, escolas especiais ou brinquedos sofisticados.</p>
+    <p class="hero-sub">Um guia interativo completo com atividades práticas, progressivas e desenvolvidas com base em princípios utilizados por especialistas em neuropediatria infantil, criado para estimular o foco, a atenção e a coordenação motora da sua criança sem precisar de terapias caras, escolas especiais ou brinquedos sofisticados.</p>
     <a href="#preco" class="btn-cta btn-pulse">
-      ↓ QUERO O GUIA AGORA
+      <span>QUERO AJUDAR NO DESENVOLVIMENTO DO MEU FILHO</span>
+      <span class="btn-arrow">⮋</span>
     </a>
     <p class="hero-trust">🔒 Pagamento seguro &nbsp;|&nbsp; <span>Acesso imediato</span> &nbsp;|&nbsp; Garantia de 7 dias</p>
   </section>
@@ -941,9 +963,6 @@
         ></iframe>
       </div>
 
-      <a href="#preco" class="btn-cta reveal">
-        ↓ QUERO COMEÇAR HOJE
-      </a>
     </div>
   </section>
 
@@ -1069,9 +1088,6 @@
         ></iframe>
       </div>
 
-      <a href="#preco" class="btn-cta reveal">
-        ↓ QUERO O MESMO RESULTADO
-      </a>
     </div>
   </section>
 
@@ -1181,7 +1197,7 @@
         </ul>
 
         <a href="https://ggcheckout.app/checkout/v5/zbadjKm007EiXZc9E389" class="btn-cta-full btn-pulse">
-          🎯 QUERO O GUIA AGORA — R$ 67
+          🎯 QUERO ADQUIRIR O GUIA AGORA
         </a>
         <p class="payment-methods">💳 Cartão de crédito &nbsp;·&nbsp; 📱 PIX</p>
       </div>
@@ -1221,7 +1237,7 @@
             Preciso ter formação em pedagogia ou ser terapeuta para usar?
             <span class="faq-arrow">▼</span>
           </button>
-          <div class="faq-answer">Não! O Guia foi criado exatamente para que qualquer mãe — sem nenhum conhecimento técnico — consiga aplicar as atividades com facilidade. As instruções são claras, simples e diretas.</div>
+          <div class="faq-answer">Não! O Guia foi criado exatamente para que qualquer mãe sem nenhum conhecimento técnico consiga aplicar as atividades com facilidade. As instruções são claras, simples e diretas.</div>
         </div>
 
         <div class="faq-item">
@@ -1229,7 +1245,7 @@
             Como funciona o acesso? É um PDF ou um site?
             <span class="faq-arrow">▼</span>
           </button>
-          <div class="faq-answer">É um guia interativo — funciona como um website. Você acessa pelo link que chegará no seu e-mail logo após a compra, em qualquer dispositivo: celular, tablet ou computador. Não precisa baixar nem instalar nada.</div>
+          <div class="faq-answer">É um guia interativo funciona como um website. Você acessa pelo link que chegará no seu e-mail logo após a compra, em qualquer dispositivo: celular, tablet ou computador. Não precisa baixar nem instalar nada.</div>
         </div>
 
         <div class="faq-item">
@@ -1253,7 +1269,7 @@
             E se eu não gostar? Posso pedir reembolso?
             <span class="faq-arrow">▼</span>
           </button>
-          <div class="faq-answer">Sim! Temos garantia de 7 dias. Se por qualquer motivo você não ficar satisfeita, devolvemos 100% do valor pago. É só nos enviar uma mensagem — sem perguntas e sem burocracia.</div>
+          <div class="faq-answer">Sim! Temos garantia de 7 dias. Se por qualquer motivo você não ficar satisfeita, devolvemos 100% do valor pago. É só nos enviar uma mensagem sem perguntas e sem burocracia.</div>
         </div>
 
         <div class="faq-item">
@@ -1264,6 +1280,14 @@
           <div class="faq-answer">O Guia é um recurso complementar para estimular o desenvolvimento em casa, no dia a dia. Se sua criança já tem acompanhamento especializado, o Guia só vai potencializar os resultados. Se houver suspeita de um laudo ou condição específica, o acompanhamento profissional é sempre recomendado.</div>
         </div>
 
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Quem criou este Guia?
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-answer">O Guia foi desenvolvido por um grupo de 3 pessoas apaixonadas pelo desenvolvimento infantil, que dedicaram meses estudando e revisando documentários, pesquisas e metodologias dos 4 maiores nomes do desenvolvimento psicológico e cognitivo infantil: <strong>Jean Piaget</strong> (teoria do desenvolvimento cognitivo), <strong>Lev Vygotsky</strong> (aprendizagem social e scaffolding), <strong>Maria Montessori</strong> (método de estimulação ativa e autonomia) e <strong>John Bowlby</strong> (teoria do apego e desenvolvimento emocional). A partir desse estudo aprofundado, as atividades foram estruturadas de forma prática e acessível para que qualquer mãe possa aplicar em casa, com segurança e resultado.</div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1271,7 +1295,7 @@
   <!-- ─── FINAL CTA ──────────────────────────── -->
   <section class="final-cta">
     <h2>Cada semana que passa é uma semana de desenvolvimento que <em>não volta</em></h2>
-    <p>As janelas de aprendizado infantil são limitadas e preciosas. Com as atividades certas, no momento certo, você pode fazer uma diferença real na vida do seu filho — e isso começa hoje.</p>
+    <p>As janelas de aprendizado infantil são limitadas e preciosas. Com as atividades certas, no momento certo, você pode fazer uma diferença real na vida do seu filho e isso começa hoje.</p>
 
     <div style="margin: 32px auto; max-width:480px;">
       <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kids/main/WhatsApp%20Image%202026-05-20%20at%2022.33.30.jpeg"
