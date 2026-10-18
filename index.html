@@ -8,17 +8,25 @@
 <meta name="theme-color" content="#101A38">
 
 <!-- ================================================================
-     ZONAS EDITÁVEIS
-     [EDITAR: VSL] → substitua SEU_ID_VIMEO e SEU_HASH_VIMEO abaixo
-                     Ex: https://vimeo.com/1181423029?h=c27696bd8c
-                     ID   = 1181423029
-                     hash = c27696bd8c  (parte após ?h= — omita se o
-                            vídeo for público/sem senha)
+     ZONAS PARA VOCÊ EDITAR (procure por [EDITAR] no arquivo)
+     1) [EDITAR: POSTER VSL]          → imagem de capa do vídeo principal
+     2) [EDITAR: POSTER DEPOIMENTO]   → imagem de capa do vídeo de depoimento
+     3) [EDITAR: IMAGENS]             → width/height reais de cada imagem
+                                        (e troque as URLs do GitHub por
+                                        um CDN + WebP quando puder)
      ================================================================ -->
 
+<!-- Conexões antecipadas -->
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://i.vimeocdn.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Fonte sem bloquear a renderização (só 3 pesos) -->
+<link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap"></noscript>
 
 <style>
 :root{
@@ -44,7 +52,7 @@
 [hidden]{display:none!important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--f);background:var(--fundo);color:var(--texto);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
@@ -97,7 +105,7 @@ p{margin:0}
 .ponto-vivo{width:9px;height:9px;border-radius:50%;background:var(--vermelho);animation:vivo 1.4s infinite;flex:none}
 @keyframes vivo{0%,100%{opacity:1}50%{opacity:.25}}
 
-/* ── CONTAINER DE VÍDEO 9:16 ── */
+/* ── CONTAINER DE VÍDEO ── */
 .video{
   position:relative;width:100%;background:#000;border-radius:20px;overflow:hidden;
   box-shadow:0 24px 50px -20px rgba(0,0,0,.6);margin:0 auto
@@ -107,6 +115,11 @@ p{margin:0}
 .video iframe,.video video{
   position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover
 }
+
+/* ── VÍDEO SOB DEMANDA (capa + botão play) ── */
+.vfacade{cursor:pointer;background:#000 center/cover no-repeat}
+.vfacade button{position:absolute;inset:0;width:100%;height:100%;display:grid;place-items:center}
+.vplay{width:76px;height:76px;border-radius:50%;background:var(--laranja);color:#fff;display:grid;place-items:center;font-size:1.8rem;padding-left:5px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
 
 .continue{margin-top:22px;color:rgba(255,255,255,.7);font-size:.9rem;font-weight:600}
 .seta-baixo{display:block;margin:8px auto 0;font-size:1.3rem;animation:desce 1.8s infinite}
@@ -287,21 +300,18 @@ p{margin:0}
     </div>
 
     <!-- ================================================================
-         [EDITAR: VSL] — VÍDEO VIMEO 9:16
-         Troque SEU_ID_VIMEO pelo número do vídeo (ex: 1181423029)
-         Se o vídeo tiver senha/hash, troque SEU_HASH_VIMEO pelo hash
-         (os caracteres após ?h= na URL do Vimeo — ex: c27696bd8c).
-         Se for público e não tiver hash, remova &h=SEU_HASH_VIMEO
-         do src abaixo.
+         [EDITAR: POSTER VSL]
+         Troque SUA_URL_DO_POSTER.webp pela URL da imagem de capa do
+         vídeo (WebP, ~360x640, ideal abaixo de 60KB).
+         O player do Vimeo só carrega quando a pessoa toca no ▶.
+         Para trocar o vídeo, altere o número 1235823672 no data-src.
          ================================================================ -->
-    <div class="video v-916">
-      <iframe
-        src="https://player.vimeo.com/video/1235823672?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-        frameborder="0"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        allowfullscreen
-        title="Guia de Atividades — Vídeo de Apresentação">
-      </iframe>
+    <div class="video v-916 vfacade"
+         data-src="https://player.vimeo.com/video/1235823672?title=0&byline=0&portrait=0&badge=0&autopause=0&autoplay=1"
+         style="background-image:url('SUA_URL_DO_POSTER.webp')">
+      <button type="button" aria-label="Assistir ao vídeo de apresentação">
+        <span class="vplay">▶</span>
+      </button>
     </div>
     <!-- ── fim VSL ── -->
 
@@ -332,7 +342,10 @@ p{margin:0}
 <section class="sec ad">
   <div class="wrap">
     <div class="ad-img">
-      <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/WhatsApp%20Image%202026-09-10%20at%2013.59.30.jpeg" alt="Antes: criança na tela, mãe exausta. Depois: atividade pronta em 10 minutos.">
+      <!-- [EDITAR: IMAGENS] ajuste width/height para o tamanho real da imagem (ideal: converter para WebP ~800px de largura) -->
+      <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/WhatsApp%20Image%202026-09-10%20at%2013.59.30.jpeg"
+           width="800" height="800" loading="lazy" decoding="async"
+           alt="Antes: criança na tela, mãe exausta. Depois: atividade pronta em 10 minutos.">
     </div>
     <div class="ad-legenda">
       <span>De um lado: improviso, cansaço e culpa no fim do dia.</span>
@@ -367,7 +380,10 @@ p{margin:0}
 
     <div class="prod-grid">
       <div class="mock">
-        <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/Guia%20L%C3%BAdico%20de%20Atividades%20Infantis.png" alt="Guia de Atividades em tablet e cartas">
+        <!-- [EDITAR: IMAGENS] ajuste width/height reais do mockup -->
+        <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/Guia%20L%C3%BAdico%20de%20Atividades%20Infantis.png"
+             width="800" height="800" loading="lazy" decoding="async"
+             alt="Guia de Atividades em tablet e cartas">
       </div>
       <ul class="prod-bullets" style="text-align:left">
         <li><i>✓</i> <span><b>Filtro por idade:</b> 2–3, 4–5, 6–7 e 8–10 anos, sempre no nível certo</span></li>
@@ -448,16 +464,17 @@ p{margin:0}
     <h2>O que as famílias estão contando</h2>
     <p class="lead" style="margin-top:12px">Relatos de quem já colocou o Guia na rotina.</p>
 
-    <!-- Vídeo de depoimento -->
-    <div class="video v-916">
-      <iframe
-        src="https://player.vimeo.com/video/1229021171?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-        frameborder="0"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        allowfullscreen
-        loading="lazy"
-        title="Depoimento de cliente — Guia de Atividades">
-      </iframe>
+    <!-- ================================================================
+         [EDITAR: POSTER DEPOIMENTO]
+         Troque SUA_URL_DO_POSTER_DEPOIMENTO.webp pela capa do vídeo
+         de depoimento (WebP, ~360x640, ideal abaixo de 60KB).
+         ================================================================ -->
+    <div class="video v-916 vfacade"
+         data-src="https://player.vimeo.com/video/1229021171?title=0&byline=0&portrait=0&badge=0&autopause=0&autoplay=1"
+         style="background-image:url('SUA_URL_DO_POSTER_DEPOIMENTO.webp')">
+      <button type="button" aria-label="Assistir ao depoimento">
+        <span class="vplay">▶</span>
+      </button>
     </div>
 
     <div class="carrossel-dep">
@@ -537,7 +554,10 @@ p{margin:0}
       <div class="caixa-topo">ACESSO VITALÍCIO • PAGAMENTO ÚNICO • GARANTIA DE 7 DIAS</div>
       <div class="caixa-corpo" style="text-align:left">
         <div class="oferta-mockup">
-          <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/Guia%20L%C3%BAdico%20de%20Atividades%20Infantis.png" alt="Guia de Atividades em tablet e cartas">
+          <!-- [EDITAR: IMAGENS] ajuste width/height reais do mockup -->
+          <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/Guia%20L%C3%BAdico%20de%20Atividades%20Infantis.png"
+               width="800" height="800" loading="lazy" decoding="async"
+               alt="Guia de Atividades em tablet e cartas">
         </div>
         <h3>O que você recebe hoje:</h3>
         <ul class="recebe">
@@ -599,7 +619,10 @@ p{margin:0}
     <h2>Esta é a hora de começar.</h2>
     <p>Menos do que você gasta em um lanche de fim de semana para ter, todo dia, a atividade certa na mão.</p>
     <div class="mock">
-      <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/Guia%20L%C3%BAdico%20de%20Atividades%20Infantis.png" alt="Guia de Atividades em tablet e cartas">
+      <!-- [EDITAR: IMAGENS] ajuste width/height reais do mockup -->
+      <img src="https://raw.githubusercontent.com/guiadeatividadesmotoras/kidsofc/main/Guia%20L%C3%BAdico%20de%20Atividades%20Infantis.png"
+           width="800" height="800" loading="lazy" decoding="async"
+           alt="Guia de Atividades em tablet e cartas">
     </div>
     <div class="fechamento">De <s>R$ 147,00</s> por apenas <b>R$ 67,00</b></div>
     <a href="https://ggcheckout.app/checkout/v5/Iw9tqMlJLT58qgaOycQL" class="btn btn-l">QUERO DESENVOLVER O FOCO E A COORDENAÇÃO DO MEU FILHO</a>
@@ -642,6 +665,24 @@ p{margin:0}
   </div>
 </footer>
 
+<!-- Vídeos sob demanda: o player do Vimeo só carrega ao tocar no ▶ -->
+<script>
+document.querySelectorAll('.vfacade').forEach(function(box){
+  box.addEventListener('click',function(){
+    var f=document.createElement('iframe');
+    f.src=box.getAttribute('data-src');
+    f.allow='autoplay; fullscreen; picture-in-picture; encrypted-media';
+    f.setAttribute('allowfullscreen','');
+    f.setAttribute('title','Vídeo');
+    f.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
+    box.innerHTML='';
+    box.style.backgroundImage='none';
+    box.appendChild(f);
+  },{once:true});
+});
+</script>
+
+<!-- Carrossel de depoimentos -->
 <script>
 (function(){
   var track=document.getElementById('depTrack');
@@ -718,3 +759,5 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1589737152933104&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+</body>
+</html>
