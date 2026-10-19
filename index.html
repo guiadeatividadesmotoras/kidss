@@ -14,6 +14,7 @@
      3) [EDITAR: IMAGENS]             → width/height reais de cada imagem
                                         (e troque as URLs do GitHub por
                                         um CDN + WebP quando puder)
+     4) [EDITAR: SAÍDA → CHECKOUT]    → no final do arquivo (3 variáveis)
      ================================================================ -->
 
 <!-- Conexões antecipadas -->
@@ -759,5 +760,59 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1589737152933104&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+
+<!-- ================================================================
+     [EDITAR: SAÍDA → CHECKOUT]
+     Quando a pessoa aperta voltar (celular) ou tira o mouse pelo
+     topo da janela (PC), vai direto para o checkout.
+     Só estas 3 variáveis precisam de edição:
+     ================================================================ -->
+<script>
+(function(){
+  /* [EDITAR 1] link do checkout */
+  var CHECKOUT_URL = 'https://ggcheckout.app/checkout/v5/Iw9tqMlJLT58qgaOycQL';
+
+  /* [EDITAR 2] só ativa depois de X ms na página (8000 = 8 segundos) */
+  var ATIVA_APOS_MS = 8000;
+
+  /* [EDITAR 3] true = dispara só 1x por visita | false = toda vez */
+  var UMA_VEZ = true;
+
+  var tempoOk = false, armado = false;
+
+  function jaDisparou(){
+    if(!UMA_VEZ) return false;
+    try { return sessionStorage.getItem('exit_checkout') === '1'; } catch(e){ return false; }
+  }
+
+  function irParaCheckout(){
+    if(!armado || jaDisparou()) return;
+    try { sessionStorage.setItem('exit_checkout','1'); } catch(e){}
+    if(window.fbq){ fbq('trackCustom','ExitIntentCheckout'); }
+    window.location.href = CHECKOUT_URL;
+  }
+
+  // Cria a "entrada" no histórico só depois de um gesto real do usuário
+  function armar(){
+    if(armado || !tempoOk) return;
+    armado = true;
+    try { history.pushState({exit:1}, '', location.href); } catch(e){}
+  }
+
+  setTimeout(function(){ tempoOk = true; }, ATIVA_APOS_MS);
+
+  ['touchstart','scroll','click'].forEach(function(ev){
+    window.addEventListener(ev, armar, {passive:true});
+  });
+
+  // Desktop: mouse saiu pelo topo da janela
+  document.addEventListener('mouseout', function(e){
+    if(!e.relatedTarget && e.clientY <= 0){ armado = true; irParaCheckout(); }
+  });
+
+  // Mobile: botão/gesto de voltar
+  window.addEventListener('popstate', function(){ irParaCheckout(); });
+})();
+</script>
 </body>
 </html>
